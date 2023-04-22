@@ -1,40 +1,364 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>reveal.js</title>
+    <title>GradeLee</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section
+          data-background-image="./assets/boliviainteligente-ymSzdQhmtR0-unsplash.jpg"
+        >
+          <h2>Automatic Grading of Student Answers using NLP Text</h2>
+          <p>
+            <small
+              >Team 35 for RCTS:<br />Aryaman Kolhe<br />Shrikara A<br />Vansh
+              Marda<br />Vineeth Bhat</small
+            >
+          </p>
+        </section>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+        <section data-background-color="rgba(20,5,74,255)">
+          <section>
+            <h2>The Problem</h2>
+            <p class="fragment">Grading subjective answers is time consuming</p>
+            <p class="fragment">
+              We propose an automated grading mechanism by using NLP on
+              students' answers
+            </p>
+          </section>
+        </section>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+        <section data-background-color="rgba(20,5,74,255)">
+          <h2>Iterations of the Problem</h2>
+          <ul>
+            <li class="fragment">One line answers - completed</li>
+            <li class="fragment">Multi line answers - tested</li>
+            <li class="fragment">Reports - future scope</li>
+          </ul>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <h2>System Architecture</h2>
+          <img data-src="./assets/system-architecture.png" />
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <h2>Features to Implement</h2>
+          <ul>
+            <li class="fragment">
+              Upload Question(s) and Correct Answer(s) with Keywords
+            </li>
+            <li class="fragment">Batch Processing of Answers</li>
+            <li class="fragment">
+              Provide Letter Grade(A,B,C,D,F) to Each Student Using a Rubric
+            </li>
+            <li class="fragment">
+              Provide Visualizations for Student Performance
+            </li>
+          </ul>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <h2>Modules</h2>
+          <ul>
+            <li>Frontend - React</li>
+            <li>Backend - Web Server - Flask</li>
+            <li>Backend - Model - PyTorch</li>
+            <li>Grading Rubric - Python</li>
+            <li>Docker-compose</li>
+          </ul>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <h2>Core Tasks</h2>
+          <ul>
+            <li class="fragment">Select Sentence Similarity Model</li>
+            <li class="fragment">
+              Perform Grammar Checking and Keyword Matching
+            </li>
+            <li class="fragment">Create a Grading Rubric</li>
+            <li class="fragment">
+              Provide APIs to Integrate With a Learning Management System(LMS)
+            </li>
+            <li class="fragment">Create a UI and Backend Server</li>
+          </ul>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <section>
+            <h2>Selecting a Sentence Similarity Model</h2>
+            <p>How to compare models?</p>
+            <p>
+              What are the possible mistakes a student can make that should be
+              caught by the model?
+            </p>
+          </section>
+          <section>
+            <h2>Selecting a Sentence Similarity Model</h2>
+            <p>Questions can be of different types:</p>
+            <ul>
+              <li>Numerical</li>
+              <li>True or False</li>
+              <li>Descriptive</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Selecting a Sentence Similarity Model</h2>
+            <p>Types of Mistakes in Answers</p>
+            <small>
+              <ul>
+                <li class="fragment">
+                  <strong><em>Negation</em></strong
+                  >: 2+2 is not 4
+                </li>
+                <li class="fragment">
+                  <strong><em>Contradiction</em></strong>
+                </li>
+                <li class="fragment">Change of Numbers: 1919 vs 1939</li>
+                <li class="fragment">Approximation: 1918 vs 20th century</li>
+                <li class="fragment">Spelling Errors</li>
+                <li class="fragment">Context Switch: The man vs Rahul</li>
+                <li class="fragment">Deviation</li>
+                <li class="fragment">Combination of these errors</li>
+              </ul>
+            </small>
+          </section>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <section>
+            <h2>Models Tested</h2>
+            <small>
+              <ul>
+                <li>all-MiniLM-L6-v2</li>
+                <li>all-mpnet-base-v2</li>
+                <li>all-MiniLM-L12-v2</li>
+                <li>stsb-roberta-large</li>
+                <li>distilbert-multilingual-nli-stsb-quora-ranking</li>
+                <li>paraphrase-albert-small-v2</li>
+                <li>paraphrase-distilroberta-base-v1</li>
+                <li>distilbert-base-nli-stsb-mean-tokens</li>
+                <li>all_datasets_v4_MiniLM-L6</li>
+                <li>LaBSE</li>
+                <li>distiluse-base-multilingual-cased-v1</li>
+                <li>multi-qa-mpnet-base-cos-v1</li>
+                <li>stsb-roberta-base-v2</li>
+                <li>xlm-roberta-xl</li>
+              </ul>
+            </small>
+          </section>
+
+          <section>
+            <p>
+              Removing models that don't handle negations and contradictions
+              well
+            </p>
+            <ul>
+              <li>stsb-roberta-large</li>
+              <li>stsb-roberta-base-v2</li>
+              <li>xlm-roberta-xl</li>
+            </ul>
+          </section>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <section>
+            <h2>stsb-roberta-base-v2 Performance</h2>
+            <p class="fragment fade-in-then-out">
+              RoBERTa was the only one that could handle negations and
+              contradictions well, could distinguish between spelling errors in
+              proper nouns and other words and had sufficient variance in
+              similarity score.
+            </p>
+          </section>
+          <section>
+            <img
+              src="./assets/visualizations/basic-error-cumulative-boxplot.png"
+              alt=""
+            />
+          </section>
+
+          <section>
+            <img
+              src="./assets/visualizations/basic-error-example-factual-viz.png"
+              alt=""
+            />
+          </section>
+
+          <section>
+            <img
+              src="./assets/visualizations/combined-errors-cumulative-boxplot.png"
+              alt=""
+            />
+          </section>
+
+          <section>
+            <img
+              src="./assets/visualizations/combined-errors-example-proper-bifurcation.png"
+              alt=""
+            />
+          </section>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <h2>Grammar Checking and Keyword Matching</h2>
+          <p class="fragment fade-in-then-semi-out">
+            Local vs API for grammar checking
+          </p>
+          <p class="fragment fade-in-then-semi-out">Chosen API - Gingerit</p>
+          <p class="fragment fade-in-then-semi-out">
+            Keyword matching is simple string search
+          </p>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <section>
+            <h2>Creating a Grading Rubric</h2>
+            <p class="fragment fade-in-then-semi-out">
+              Relative vs Absolute Scheme
+            </p>
+            <p class="fragment fade-in-then-semi-out">
+              ML Based vs Programmatic
+            </p>
+          </section>
+          <section>
+            <h2>The Absolute, Programmatic Rubric</h2>
+            <small
+              ><p>
+                The grade received is based on cutoffs from the final score. The
+                final score is generated from the sentence similarity score from
+                RoBERTa after adding penalties for grammatical errors and
+                keyword misses.
+              </p></small
+            >
+          </section>
+          <section>
+            <h2>The Absolute, Programmatic Rubric</h2>
+            <small>
+              <p>Cutoffs:</p>
+              <ul>
+                <li>A: 0.969</li>
+                <li>B: 0.932</li>
+                <li>C: 0.909</li>
+                <li>D: 0.88</li>
+                <li>F: &lt;0.88 </li>
+                <li>Grammatical Error Penalty</li>
+                <li>Keyword Miss Penalty</li>
+              </ul>
+            </small>
+          </section>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <section>
+            <h2>Integrating with an LMS</h2>
+            <img src="./assets/use-case-diagram.png" alt="">
+          </section>
+
+          <section>
+            <h2>Integrating with an LMS</h2>
+            <p>API to evaluate student, along with batch processing</p>
+          </section>
+        </section>
+
+        <section data-background-color="rgba(20,5,74,255)">
+          <section>
+            <h2>UI and Backend</h2>
+            <p class="fragment fade-in-then-semi-out">
+              Backend written in Flask
+            </p>
+            <p class="fragment fade-in-then-semi-out">
+              Frontend written in React
+            </p>
+          </section>
+
+          <section>
+            <h2>UI and Backend</h2>
+            <h3>JSON Schema</h3>
+            <pre><code data-trim data-line-numbers data-no-escape>
+					{
+						"question_number":Number:{
+							"question": String,
+							"answer": String,
+							"keywords": [String]
+						},
+
+					}
+				</code></pre>
+          </section>
+
+          <section>
+            <h2>UI and Backend</h2>
+            <p>Database Integration</p>
+            <small><p>Questions are uploaded in MongoDB</p></small>
+          </section>
+
+          <section>
+            <h2>UI and Backend</h2>
+            <p>Visualizations</p>
+            <small
+              ><p>Along with grades, visualizations are displayed</p></small
+            >
+          </section>
+
+          <section>
+            <img
+              src="./assets/visualizations/example1_table_score_distro.png"
+              alt=""
+            />
+          </section>
+
+          <section>
+            <img
+              src="./assets/visualizations/example2_sim_scores_student.png"
+              alt=""
+            />
+          </section>
+        </section>
+
+        <!-- <section data-background-iframe="http://localhost:3000" data-background-interactive> -->
+        <!-- </section> -->
+        <section
+          data-background-iframe="http://localhost:3000"
+          data-background-interactive
+        ></section>
+
+        <section
+          data-background-image="./assets/boliviainteligente-ymSzdQhmtR0-unsplash.jpg"
+        >
+          <h1>Thank You!</h1>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
 </html>
